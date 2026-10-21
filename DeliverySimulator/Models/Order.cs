@@ -70,11 +70,23 @@ public class Order
             throw new InvalidOperationException("Способ доставки можно менять только у нового заказа.");
         }
 
+        if (!method.RequiresCourier && Courier != null)
+        {
+            Courier.Release();
+            Courier = null;
+        }
+
         DeliveryMethod = method;
     }
 
+
     public void AssignCourier(Courier courier)
     {
+        if (Status != OrderStatus.New)
+        {
+            throw new InvalidOperationException("Назначить курьера можно только у нового заказа.");
+        }
+
         if (DeliveryMethod == null)
         {
             throw new InvalidOperationException("Сначала выберите способ доставки.");
