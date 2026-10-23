@@ -11,13 +11,9 @@ public class Client
         {
             throw new ArgumentException("Имя клиента не может быть пустым.", nameof(name));
         }
-        if (string.IsNullOrWhiteSpace(phone))
-        {
-            throw new ArgumentException("Телефон клиента не может быть пустым.", nameof(phone));
-        }
 
         Name = name.Trim();
-        Phone = phone.Trim();
+        Phone = PhoneValidator.Normalize(phone);
     }
 
     public override string ToString()

@@ -13,10 +13,6 @@ public class Courier
         {
             throw new ArgumentException("Имя курьера не может быть пустым.", nameof(name));
         }
-        if (string.IsNullOrWhiteSpace(phone))
-        {
-            throw new ArgumentException("Телефон курьера не может быть пустым.", nameof(phone));
-        }
         if (id <= 0)
         {
             throw new ArgumentException("Id курьера должен быть положительным числом.", nameof(id));
@@ -24,7 +20,7 @@ public class Courier
         
         Id = id;
         Name = name.Trim();
-        Phone = phone.Trim();
+        Phone = PhoneValidator.Normalize(phone);
         IsBusy = false;
     }
 

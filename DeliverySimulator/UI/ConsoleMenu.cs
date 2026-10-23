@@ -88,7 +88,7 @@ public class ConsoleMenu
     private void CreateOrder()
     {
         string name = ReadString("Имя клиента: ");
-        string phone = ReadString("Телефон клиента: ");
+        string phone = ReadPhone("Телефон клиента: ");
         string address = ReadString("Адрес доставки: ");
 
         Order order = _service.CreateOrder(name, phone, address);
@@ -272,7 +272,6 @@ public class ConsoleMenu
         return input;
     }
 
-
     private Order ReadOrder()
     {
         if (_service.Orders.Count == 0)
@@ -324,6 +323,21 @@ public class ConsoleMenu
             }
 
             Console.WriteLine("Введите неотрицательное число, например 199.99");
+        }
+    }
+
+    private static string ReadPhone(string prompt)
+    {
+        while (true)
+        {
+            string input = ReadInput(prompt);
+
+            if (PhoneValidator.IsValid(input))
+            {
+                return input;
+            }
+
+            Console.WriteLine("Неверный номер. Пример: +7 900 123-45-67 или 89001234567");
         }
     }
 
