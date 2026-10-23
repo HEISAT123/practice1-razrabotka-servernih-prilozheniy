@@ -36,22 +36,26 @@ public class Order
     }
 
     /// <summary>
+    /// Стоимость товаров без доставки.
+    /// </summary>
+    public decimal ItemsCost => _items.Sum(item => item.TotalPrice);
+
+    /// <summary>
     /// Итоговая стоимость: товары + доставка.
     /// </summary>
     public decimal TotalCost
     {
         get
         {
-            decimal itemsCost = _items.Sum(item => item.TotalPrice);
-
             if (DeliveryMethod == null)
             {
-                return itemsCost;
+                return ItemsCost;
             }
 
-            return itemsCost + DeliveryMethod.CalculateCost(itemsCost);
+            return ItemsCost + DeliveryMethod.CalculateCost(ItemsCost);
         }
     }
+
 
     public void AddItem(OrderItem item)
     {
