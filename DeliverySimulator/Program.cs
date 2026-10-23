@@ -1,7 +1,6 @@
-﻿using DeliverySimulator.Models;
+﻿using DeliverySimulator.Services;
+using DeliverySimulator.UI;
 
-Courier courier = new Courier(1,"Иванов Иван", "1234567890");
-
-courier.TakeOrder();
-courier.TakeOrder();
-Console.WriteLine(courier.IsBusy);
+OrderService service = new OrderService();
+ConsoleMenu menu = new ConsoleMenu(service);
+menu.Run();
